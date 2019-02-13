@@ -13,3 +13,14 @@
  * 注意：本内容仅限于公司内部传阅，禁止外泄以及用于其他的商业目
  */
  ```
+ 
+ #### 2、在eclipse中添加方法注解
+ ```xml
+/**   
+ * @Title: ${enclosing_method}   
+ * @Description: ${todo}(这里用一句话描述这个方法的作用)   
+ * @param: ${tags}      
+ * @return: ${return_type}      
+ * @throws   
+ */  
+```
