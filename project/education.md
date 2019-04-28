@@ -36,3 +36,12 @@ for (var item in k) {
 }
 console.info("k:"+k.icon);
 ```
+
+### 3.数据库数据
+```
+【Question】Cause: java.sql.SQLException: Zero date value prohibited
+【cause&method】
+jdbc:mysql://yourserver:3306/yourdatabase?zeroDateTimeBehavior=convertToNull
+设置zeroDateTimeBehavior 属性，当遇到DATETIME值完全由0组成时，最终的有效值可以设置为，异常(exception)，一个近似值(round)，或将这个值转换为null(convertToNull)。
+出现0000-00-00 属于一个无效日期，用convertToNull属性即可
+```
