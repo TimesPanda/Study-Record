@@ -30,3 +30,18 @@
 </properties>    
 </profile>
 ```
+### 2.新建的项目遇到未知错误
+```xml
+主要原因是jar的问题导致，一般是采用将jar版本换取即可，本文记录的原因是因为采用了spring-boot的2.1.5的版本导致出现这个问题，修改版本为2.1.2即可。这个问题衍生的问题导致查询：
+有一种说法是删除仓库中所有下载失败的文件：
+linux下
+
+~/.m2 -name "*.lastUpdated" -exec grep -q "Could not transfer" {} \; -print -exec rm {} \;
+
+window下
+
+cd %userprofile%\.m2\repository
+for /r %i in (*.lastUpdated) do del %i
+
+然后右击你的工程，Maven->"Update Project ..."，即可解决
+```
