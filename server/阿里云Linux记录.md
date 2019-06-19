@@ -7,9 +7,9 @@
  安装ZIP压缩：yum install zip
  解压ZIP文件：yum install unzip
 ```
-- 配置Tomcat
+- 配置并允许Tomcat
 ```
-按照原始配置即可，无需处理
+可能会遇到权限问题：$ sudo chmod -R 777 某一目录
 ```
 - 打开端口
 ```
