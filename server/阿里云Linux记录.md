@@ -72,3 +72,4 @@ echo "Backup Process Done!"
 每天凌晨执行：
 1 0 * * * /home/linrui/XXXX.sh
 ```
+- 查看相关的任务信息，可以查看crontab命令，比如：-e 表示编辑，-l 表示查看任务列表等
