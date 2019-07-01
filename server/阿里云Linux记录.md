@@ -88,3 +88,6 @@ echo "SQL备份脚本" | mailx -v -s "【数据库备份】$TIME - SQL压缩包"
 - 可以简单的测试：# sh -x 脚本名称，查看脚本中哪一句执行有问题
 - 也可以将发送邮件的命令直接在命令行执行，然后再写到脚本里面去
 - mailx 需要安装，一把就是: yum install mailx ，即可
+```
+参考链接：https://www.guitu18.com/se/linux/2018-08-18/24.html
+```
