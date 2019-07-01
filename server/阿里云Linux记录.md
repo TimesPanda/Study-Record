@@ -15,3 +15,60 @@
 ```
 需要打开阿里云端口
 ```
+
+### 2.自动备份机制
+```
+因为之前服务器奔溃过一次，因此想着来备份一下服务器上的数据库内容
+```
+- 第一步，编写crontab脚本（这里省去脚本开启、安装的过程等）
+```
+#!/bin/bash
+
+USER="XXXX"
+PASSWORD="XXXX"
+DATABASE="platform"
+HOSTNAME="172.17.178.18"
+
+OPTIONS="-h$HOSTNAME -u$USER -p$PASSWORD $DATABASE"
+
+# 备份路径
+BACKUP_PATH=/home/mysql_backup/
+
+# 备份记录路径
+BACKUP_INFO=/home/mysql_backup/backup_info.log
+
+# 备份文件名
+FILE_NAME=$DATABASE"_"`date '+%Y%m%d_%H%M%S'`.sql
+
+# 备份路径不存在则创建
+if [ ! -d $BACKUP_PATH ] ; then
+	mkdir -p "$BACKUP_PATH"
+fi
+
+# 开始备份
+echo " " >> $BACKUP_INFO
+echo "-----------------------------------------" >> $BACKUP_INFO
+echo "BACKUP DATE:" $(date +"%y-%m-%d %H:%M:%S") >> $BACKUP_INFO
+echo "-----------------------------------------" >> $BACKUP_INFO
+cd $BACKUP_PATH
+mysqldump $OPTIONS > $FILE_NAME
+if [[ $? == 0 ]]; then
+    tar czvf $FILE_NAME.tgz $FILE_NAME >> $BACKUP_INFO 2>&1
+    echo "$FILE_NAME.tgz Backup Successful!" >> $BACKUP_INFO
+    rm -f $FILE_NAME
+else
+    echo "Database Backup Failed!" >> $BACKUP_INFO
+fi
+echo "BACKUP END :" $(date +"%y-%m-%d %H:%M:%S") >> $BACKUP_INFO
+echo " " >> $BACKUP_INFO
+echo "Backup Process Done!"
+```
+- 第二步骤，开启自动任务，我这里采用每天凌晨备份
+```
+测试每十分钟执行一次，成功！
+# crontab -e
+0,10,20,30,40,50 * * * * /temp/timer.sh
+
+每天凌晨执行：
+1 0 * * * /home/linrui/XXXX.sh
+```
